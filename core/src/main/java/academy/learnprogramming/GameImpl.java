@@ -8,14 +8,16 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+@Component
 public class GameImpl implements Game {
     // == constants ==
     private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
     
     // == fields ==
-    @Autowired
     private NumberGenerator numberGenerator;
-    private int guessCount = 10;
+    @Autowired
+    @GuessCount
+    private int guessCount;
     private int number;
     private int guess;
     private int smallest;
@@ -23,18 +25,19 @@ public class GameImpl implements Game {
     private int remainingGuesses;
     private boolean validNumberRange = true;
     
-    /*== constructors == (commented out to use setter-based DI instead)
+    // == constructors == (commented out to use setter-based DI instead)
+    @Autowired
     public GameImpl(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
-    }*/
+    }
     
     // == init
     @PostConstruct
     @Override
     public void reset() {
-        smallest = 0;
+        smallest = numberGenerator.getMinNumber();
         biggest = numberGenerator.getMaxNumber();
-        guess = 0;
+        guess = numberGenerator.getMinNumber();
         remainingGuesses = guessCount;
         number = numberGenerator.next();
         log.debug("GameImpl @PostConstruct called");
@@ -50,7 +53,10 @@ public class GameImpl implements Game {
 //        this.numberGenerator = numberGenerator;
 //    }
     
-
+    
+    public int getGuessCount() {
+        return guessCount;
+    }
     
     @Override
     public int getNumber() {
@@ -83,13 +89,19 @@ public class GameImpl implements Game {
     }
     
     @Override
+    public boolean getValidNumberRange() {
+        return validNumberRange;
+    }
+    
+    @Override
     public void check() {
-        checkValidNumberRange();
-        if(guess > number){
-            biggest = guess -1;
-        }
-        if (guess < number) {
-            smallest = guess +1;
+        if(isValidNumberRange()){
+            if(guess > number){
+                biggest = guess -1;
+            }
+            if (guess < number) {
+                smallest = guess +1;
+            }
         }
         remainingGuesses--;
     
@@ -97,7 +109,7 @@ public class GameImpl implements Game {
     
     @Override
     public boolean isValidNumberRange() {
-        return validNumberRange;
+        return validNumberRange = (guess >= smallest) && (guess <=biggest);
     }
     
     @Override
@@ -110,10 +122,6 @@ public class GameImpl implements Game {
         return !isGameWon() && (remainingGuesses <= 0);
     }
     
-    // == private methods ==
-    private void checkValidNumberRange(){
-        validNumberRange = (guess >= smallest) && (guess <=biggest);
-    }
 }
 
 
