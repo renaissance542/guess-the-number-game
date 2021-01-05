@@ -1,24 +1,30 @@
 package academy.learnprogramming;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 
-public class MessageGeneratorImpl implements MessageGenerator{
-    
-    // == constants ==
-    private static final Logger log = LoggerFactory.getLogger(MessageGeneratorImpl.class);
+@Slf4j
+@Component
+public class MessageGeneratorImpl implements MessageGenerator {
     
     // fields
+    private final Game game;
+    
+    // == constructors ==
+    
     @Autowired
-    private Game game;
-    // below removed to use guessCount from GameImpl instead
-//    private int guessCount = 10;
+    public MessageGeneratorImpl(Game game) {
+        this.game = game;
+    }
     
     // init method
     @PostConstruct
-    private void postConstruct(){
+    private void postConstruct() {
         log.info("postConstruct called for MessageGeneratorImpl");
         log.info("Game = {}", game);
     }
@@ -39,25 +45,22 @@ public class MessageGeneratorImpl implements MessageGenerator{
             return "You guessed it!" +
                     " The number was " +
                     game.getNumber();
-        } else if (game.isGameLost()){
+        } else if (game.isGameLost()) {
             return "You lost." +
                     " The number was " +
                     game.getNumber();
-        } else if (!game.getValidNumberRange()) {
+        } else if (!game.isValidNumberRange()) {
             return "Invalid number range.";
-        } else if (game.getRemainingGuesses() == game.getGuessCount()){
+        } else if (game.getRemainingGuesses() == game.getGuessCount()) {
             return "What is your first guess?";
         } else {
             String direction = "Lower";
-            if (game.getGuess() < game.getNumber()){
+            if (game.getGuess() < game.getNumber()) {
                 direction = "Higher";
             }
             return direction + "! You have " +
                     game.getRemainingGuesses() +
                     " guesses left.";
         }
-
-        
-
     }
 }
