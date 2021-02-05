@@ -1,6 +1,7 @@
 package academy.learnprogramming;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import javax.annotation.PostConstruct;
 import java.util.Random;
 
 @Slf4j
-@Getter
+@Getter  // Lombok takes care of creating and maintaining getters for this class
 @Component
 public class NumberGeneratorImpl implements NumberGenerator {
     // == fields ==
