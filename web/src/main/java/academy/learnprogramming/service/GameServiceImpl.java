@@ -17,17 +17,21 @@ public class GameServiceImpl implements GameService {
     private MessageGenerator messageGenerator;
     
     // == constructors ==
+    // Tim made this constructor public, and had @Autowired annotated for the whole constructor, not individual
+    // variables.
     private GameServiceImpl(@Autowired Game game, @Autowired MessageGenerator messageGenerator) {
         this.game = game;
         this.messageGenerator = messageGenerator;
     }
     
-    // == methods ==
     
+    // init
     @PostConstruct
     private void init() {
         log.info("Main Message = {}, Number to guess = {}", messageGenerator.getMainMessage(), game.getNumber());
     }
+    
+    // == methods ==
     
     @Override
     public boolean isGameOver() {
