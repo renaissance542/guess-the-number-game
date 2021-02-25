@@ -7,7 +7,11 @@
 <body>
 <div align="center">
     <h1>Welcome to the Number Game</h1>
-    <a th:text="Play" th:href="play"><h2>Click to Play</h2></a>
+    <a th:text="Play"
+       href="play">
+        <!--       th:href="@{__${T(academy.learnprogramming.util.GameMappings).PLAY}__}">-->
+        <h2>Click to Play</h2>
+    </a>
 </div>
 </body>
 </html>
