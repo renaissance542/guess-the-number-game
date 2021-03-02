@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/head :: headFragment}">
     <meta charset="UTF-8">
-    <title>Game Over</title>
+    <title>Title Content</title>
 </head>
 <body>
 <div align="center">
+    <h1>Guess the Number Game</h1>
+    <h2>Game Over.</h2>
     <h3 th:text="${__${RESULT_MESSAGE}__}">Game Over</h3>
-    <a th:text="Play_Again"
-       th:href="@{__${PLAY}__}">
-        <h2>Click to Play</h2>
-    </a>
+    <h3><a th:href="@{__${RESTART}__}">Play Again</a></h3>
+    <h3><a th:href="@{__${HOME}__}">Home</a></h3>
+
+    <footer th:replace="~{fragments/footer :: footerFragment}">
+        <p>Footer Content</p>
+    </footer>
 </div>
 </body>
 </html>

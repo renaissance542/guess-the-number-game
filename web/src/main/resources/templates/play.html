@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/head :: headFragment}">
     <meta charset="UTF-8">
-    <title>Guess the Number Game</title>
+    <title>Title Content</title>
 </head>
 <body>
 <div align="center">
@@ -21,9 +21,21 @@
         <input type="submit" value="Submit"/>
     </form>
 
-    <footer>
-        <p>Created by Philippe Roy and The Learn Programming Academy</p>
+    <footer th:replace="~{fragments/footer :: footerFragment}">
+        <p>Footer Content</p>
     </footer>
 </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -53,11 +53,24 @@ public class GameController {
     public String gameOver(Model model) {
         model.addAttribute(AttributeNames.RESULT_MESSAGE, gameService.getResultMessage());
         model.addAttribute("RESULT_MESSAGE", AttributeNames.RESULT_MESSAGE);
-        model.addAttribute("PLAY", ViewNames.PLAY);
-        gameService.reset();
-        log.info("gameService.reset() was called");
+        model.addAttribute("RESTART", GameMappings.RESTART);
+        model.addAttribute("HOME", GameMappings.HOME);
         return ViewNames.GAME_OVER;
     }
+    
+    @GetMapping(GameMappings.RESTART)
+    public String restart() {
+        gameService.reset();
+        gameService.reset();
+        log.info("gameService.reset() was called");
+        return GameMappings.REDIRECT_PLAY;
+    }
+
+//    @GetMapping(GameMappings.HOME)
+//    public String home(){
+//        return ViewNames.HOME;
+//    }
+    
 }
 
 
