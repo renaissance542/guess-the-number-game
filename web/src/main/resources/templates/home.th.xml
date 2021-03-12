@@ -1,6 +1,8 @@
 <thlogic>
     <attr sel="#headId"
           th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#game-welcome-message"
+          th:text="#{game.welcome.message}"/>
     <attr sel="#play" th:text="Play"
           th:href="play"/>
     <attr sel="#footerId"
