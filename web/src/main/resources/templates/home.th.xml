@@ -3,7 +3,7 @@
           th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#game-welcome-message"
           th:text="#{game.welcome.message}"/>
-    <attr sel="#play" th:text="Play"
+    <attr sel="#play" th:text="#{game.play}"
           th:href="play"/>
     <attr sel="#footerId"
           th:replace="~{fragments/footer :: footerFragment}"/>
